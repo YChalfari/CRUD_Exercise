@@ -1,0 +1,10 @@
+.user {
+  display: flex;
+  width: 100%;
+  min-height: 25vh;
+  margin: 2% 1%;
+}
+.user img {
+  width: 50%;
+  height: 80%;
+}
