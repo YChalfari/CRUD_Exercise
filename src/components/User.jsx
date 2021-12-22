@@ -10,9 +10,7 @@ export class User extends Component {
     user: this.props.user,
     updatedUser: this.props.user,
   };
-  handleChange = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
+  handleChange = (name, value) => {
     this.setState((prevState) => ({
       updatedUser: { ...prevState.updatedUser, [name]: value },
     }));
@@ -22,6 +20,13 @@ export class User extends Component {
       `https://61c2fc0b9cfb8f0017a3e838.mockapi.io/users/${this.state.updatedUser.id}`,
       { ...this.state.updatedUser }
     );
+  };
+  handleDelete = async (e) => {
+    await axios.delete(
+      `https://61c2fc0b9cfb8f0017a3e838.mockapi.io/users/${this.state.updatedUser.id}`,
+      { ...this.state.updatedUser }
+    );
+    this.setState({ state: "" });
   };
   renderUser() {
     const user = this.state.updatedUser;
@@ -46,7 +51,11 @@ export class User extends Component {
         <div className="inputs-wrap">
           {this.renderUser()}
           <Button value="Save Changes" onClick={this.handleUpdate} />
-          <Button value="Delete User" />
+          <Button
+            id={this.props.user.id}
+            value="Delete User"
+            onClick={this.handleDelete}
+          />
         </div>
         <img src={this.props.user.imageURL} alt={this.props.user.firstname} />
       </div>
